@@ -1,36 +1,38 @@
 
 import axios from "axios";
 import { Note } from "@/types/note";
-import { api } from "./api";
+import { apilib } from "./api";
+
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkZxdmFAdWtyLm5ldCIsImlhdCI6MTc4NjYyMjc0Mn0.jkg9S2Kty2N0FrvCg1GBSW9zCjuWvjxmxCLSEkC-ik8";
 
 
-// interface NotesResponse {
-//   notes: Note[];
-//   totalPages?: number;
-// }
+interface NotesResponse {
+  notes: Note[];
+  totalPages?: number;
+}
 
-// export const fetchNotes = async (
-//   search?: string,
-//   tag?: string,
-//   currentPage?: number,
-// ): Promise<NotesResponse> => {
-//   const config = {
-//     headers: {
-//       accept: "application/json",
-//       Authorization: `Bearer ${token}`,
-//     },
-//     params: {
-//       search: search,
-//       // ВАЖЛИВО: якщо tag === "all" або undefined → не додаємо параметр
-//       ...(tag && tag !== "all" ? { tag } : {}),
-//       page: currentPage,
-//     },
-//   };
+export const fetchNotes = async (
+  search?: string,
+  tag?: string,
+  currentPage?: number,
+): Promise<NotesResponse> => {
+  const config = {
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: {
+      search: search,
+      // ВАЖЛИВО: якщо tag === "all" або undefined → не додаємо параметр
+      ...(tag && tag !== "all" ? { tag } : {}),
+      page: currentPage,
+    },
+  };
 
-//   const resp = await api.get<NotesResponse>("/notes", config);
-//   // console.log(tag);
-//   return resp.data;
-// };
+  const resp = await apilib.get<NotesResponse>("/notes", config);
+  // console.log(tag);
+  return resp.data;
+};
 
 export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
   const config = {
@@ -38,11 +40,8 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
       accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
-    // params: {
-    //   id: id,
-    // },
   };
-  const { data } = await api.get<Note>(`/notes/${id}`, config);
+  const { data } = await apilib.get<Note>(`/notes/${id}`, config);
   return data;
 };
 
@@ -55,12 +54,12 @@ export const addNote = async (
       Authorization: `Bearer ${token}`,
     },
   };
-  const { data } = await api.post<Note>("/notes", noteData, config);
+  const { data } = await apilib.post<Note>("/notes", noteData, config);
   return data;
 };
 
 export const deleteNote = async (id: Note["id"]): Promise<Note> => {
-  const { data } = await api.delete<Note>(`/notes/${id}`, {
+  const { data } = await apilib.delete<Note>(`/notes/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return data;
