@@ -7,4 +7,8 @@ export interface Note {
   tag: string;
 }
 
+export interface NotesResponse {
+  notes: Note[];
+  totalPages?: number;
+}
 // export type NoteId = Note["id"];
