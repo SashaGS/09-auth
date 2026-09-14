@@ -3,8 +3,8 @@ import { Note } from "@/types/note";
 import { apilib } from "./api";
 import { User } from "@/types/user";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkZxdmFAdWtyLm5ldCIsImlhdCI6MTc4NjYyMjc0Mn0.jkg9S2Kty2N0FrvCg1GBSW9zCjuWvjxmxCLSEkC-ik8";
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkZxdmFAdWtyLm5ldCIsImlhdCI6MTc4NjYyMjc0Mn0.jkg9S2Kty2N0FrvCg1GBSW9zCjuWvjxmxCLSEkC-ik8";
 interface LoginRequest {
   email: string;
   password: string;
@@ -88,5 +88,12 @@ export async function login(credentials: LoginRequest): Promise<LoginResponse> {
     withCredentials: true, // щоб куки зберігались
   });
 
+  return res.data;
+}
+
+export async function getMe(): Promise<User> {
+  const res = await apilib.get<User>("/users/me", {
+    withCredentials: true,
+  });
   return res.data;
 }

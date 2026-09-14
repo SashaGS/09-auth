@@ -1,19 +1,45 @@
 import Image from "next/image";
+import type { Metadata } from "next";
+import Link from "next/link";
 import css from "./ProfilePage.module.css";
+import { getMe } from "@/lib/api/clientApi";
 
-function ProfilePage() {
+export const metadata: Metadata = {
+  title: "Profile Page - NoteHub",
+  description: "User profile page with avatar, username and email.",
+  keywords: ["profile", "user", "notehub", "account"],
+  openGraph: {
+    title: "Profile Page - NoteHub",
+    description: "View and edit your profile information.",
+    url: "http://localhost:3000/profile",
+    siteName: "NoteHub",
+    images: [
+      {
+        url: "https://ac.goit.global/user/avatar123.png",
+        width: 1200,
+        height: 630,
+        alt: "User Avatar",
+      },
+    ],
+    type: "website",
+  },
+};
+
+async function ProfilePage() {
+  const user = await getMe();
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
         <div className={css.header}>
           <h1 className={css.formTitle}>Profile Page</h1>
-          <a src="/profile/edit" className={css.editProfileButton}>
+          <Link href="/profile/edit" className={css.editProfileButton}>
             Edit Profile
-          </a>
+          </Link>
         </div>
         <div className={css.avatarWrapper}>
           <Image
-            src="user_avatar"
+            src={user.avatar}
             alt="User Avatar"
             width={120}
             height={120}
