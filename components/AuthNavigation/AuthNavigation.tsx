@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function AuthNavigation() {
   return (
-    <ul>
+    <>
       <li className={css.navigationItem}>
         <Link href="/profile" className={css.navigationLink}>
           Profile
@@ -26,7 +26,7 @@ function AuthNavigation() {
           Sign up
         </Link>
       </li>
-    </ul>
+    </>
   );
 }
 

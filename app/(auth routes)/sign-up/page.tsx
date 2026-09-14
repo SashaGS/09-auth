@@ -1,6 +1,6 @@
 "use client";
 
-import css from "./SignUp.module.css";
+import css from "./SignUpPage.module.css";
 
 function SignUpPage() {
   return (

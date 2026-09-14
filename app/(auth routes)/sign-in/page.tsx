@@ -1,3 +1,4 @@
+// import { error } from "console";
 import css from "./SignInPage.module.css";
 
 function SignInPage() {
@@ -34,7 +35,7 @@ function SignInPage() {
           </button>
         </div>
 
-        <p className={css.error}>{rror}</p>
+        {/* <p className={css.error}>{error}</p> */}
       </form>
     </main>
   );
