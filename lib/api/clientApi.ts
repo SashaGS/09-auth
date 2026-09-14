@@ -1,9 +1,19 @@
 // import axios from "axios";
 import { Note } from "@/types/note";
 import { apilib } from "./api";
+import { User } from "@/types/user";
 
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkZxdmFAdWtyLm5ldCIsImlhdCI6MTc4NjYyMjc0Mn0.jkg9S2Kty2N0FrvCg1GBSW9zCjuWvjxmxCLSEkC-ik8";
+interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  user: User;
+  token: string;
+}
 
 interface NotesResponse {
   notes: Note[];
@@ -63,3 +73,20 @@ export const deleteNote = async (id: Note["id"]): Promise<Note> => {
   });
   return data;
 };
+
+export const register = async () => {
+  const { data } = await apilib.post("/auth/register", {
+    email: " ",
+  });
+};
+
+export async function login(credentials: LoginRequest): Promise<LoginResponse> {
+  const res = await apilib.post<LoginResponse>("/auth/login", credentials, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true, // щоб куки зберігались
+  });
+
+  return res.data;
+}
