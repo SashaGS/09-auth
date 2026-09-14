@@ -9,31 +9,31 @@ export const fetchNotes = async (
   tag?: string,
   currentPage?: number,
 ): Promise<NotesResponse> => {
-  const config = {
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      search: search,
-      // ВАЖЛИВО: якщо tag === "all" або undefined → не додаємо параметр
-      ...(tag && tag !== "all" ? { tag } : {}),
-      page: currentPage,
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     accept: "application/json",
+  //     // Authorization: `Bearer ${token}`,
+  //   },
+  //   params: {
+  //     search: search,
+  //     // ВАЖЛИВО: якщо tag === "all" або undefined → не додаємо параметр
+  //     ...(tag && tag !== "all" ? { tag } : {}),
+  //     page: currentPage,
+  //   },
+  // };
 
-  const resp = await apilib.get<NotesResponse>("/notes", config);
+  const resp = await apilib.get<NotesResponse>("/notes");
   // console.log(tag);
   return resp.data;
 };
 
 export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
-  const config = {
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const { data } = await apilib.get<Note>(`/notes/${id}`, config);
+  // const config = {
+  //   headers: {
+  //     accept: "application/json",
+  //     // Authorization: `Bearer ${token}`,
+  //   },
+  // };
+  const { data } = await apilib.get<Note>(`/notes/${id}`);
   return data;
 };
