@@ -29,6 +29,10 @@ export interface RegisterResponse {
   token: string;
 }
 
+type CheckSessionRequest = {
+  success: boolean;
+};
+
 export const fetchNotes = async (
   search?: string,
   tag?: string,
@@ -93,12 +97,10 @@ export const login = async (data: LoginRequest) => {
   return res.data;
 };
 
-// export async function getMe(): Promise<User> {
-//   const res = await apilib.get<User>("/users/me", {
-//     withCredentials: true,
-//   });
-//   return res.data;
-// }
+export const getMe = async () => {
+  const { data } = await apilib.get<User>("/auth/me");
+  return data;
+};
 
 export async function updateMe(updatedData: Partial<User>): Promise<User> {
   const res = await apilib.put<User>("/users/me", updatedData, {
@@ -106,3 +108,8 @@ export async function updateMe(updatedData: Partial<User>): Promise<User> {
   });
   return res.data;
 }
+
+export const checkSession = async () => {
+  const res = await apilib.get<CheckSessionRequest>("/auth/session");
+  return res.data.success;
+};

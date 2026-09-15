@@ -1,4 +1,5 @@
-// import { error } from "console";
+"use client";
+
 import css from "./SignInPage.module.css";
 import { login, LoginRequest } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
@@ -62,8 +63,7 @@ function SignInPage() {
             Log in
           </button>
         </div>
-
-        {/* <p className={css.error}>{error}</p> */}
+        <p className={css.error}>{error}</p>
       </form>
     </main>
   );
