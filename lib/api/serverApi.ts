@@ -42,7 +42,7 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
 
 export async function getMe(): Promise<User> {
   const cookieStore = await cookies();
-  console.log("Cookies in getMe:", cookieStore);
+  // console.log("Cookies in getMe:", cookieStore);
   const cookieHeader = cookieStore.toString();
   const res = await apilib.get<User>("/users/me", {
     headers: {

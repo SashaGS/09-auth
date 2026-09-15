@@ -3,14 +3,12 @@ import { Note } from "@/types/note";
 import { apilib } from "./api";
 import { User } from "@/types/user";
 
-// const token =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkZxdmFAdWtyLm5ldCIsImlhdCI6MTc4NjYyMjc0Mn0.jkg9S2Kty2N0FrvCg1GBSW9zCjuWvjxmxCLSEkC-ik8";
-interface LoginRequest {
+export interface LoginRequest {
   email: string;
   password: string;
 }
 
-interface LoginResponse {
+export interface LoginResponse {
   user: User;
   token: string;
 }
@@ -90,16 +88,10 @@ export const register = async (data: RegisterRequest) => {
   return resp;
 };
 
-export async function login(credentials: LoginRequest): Promise<LoginResponse> {
-  const res = await apilib.post<LoginResponse>("/auth/login", credentials, {
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
-    withCredentials: true, // щоб куки зберігались
-  });
-
+export const login = async (data: LoginRequest) => {
+  const res = await apilib.post<LoginResponse>("/auth/login", data);
   return res.data;
-}
+};
 
 // export async function getMe(): Promise<User> {
 //   const res = await apilib.get<User>("/users/me", {

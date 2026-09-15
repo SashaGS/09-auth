@@ -15,13 +15,13 @@ export interface NotesResponse {
 }
 // export type NoteId = Note["id"];
 
-export interface RegisterRequest {
-  email: string;
-  password: string;
-  // username?: string;
-}
+// export interface RegisterRequest {
+//   email: string;
+//   password: string;
+//   // username?: string;
+// }
 
-export interface RegisterResponse {
-  user: User;
-  token: string;
-}
+// export interface RegisterResponse {
+//   user: User;
+//   token: string;
+// }

@@ -1,10 +1,38 @@
 // import { error } from "console";
 import css from "./SignInPage.module.css";
+import { login, LoginRequest } from "@/lib/api/clientApi";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ApiError } from "../../api/api";
 
 function SignInPage() {
+  const router = useRouter();
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      const formValues: LoginRequest = {
+        email: String(formData.get("email") ?? ""),
+        password: String(formData.get("password") ?? ""),
+      };
+      const result = await login(formValues);
+      if (result) {
+        router.push("/profile");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          "Oops... some error",
+      );
+    }
+  };
+
   return (
     <main className={css.mainContent}>
-      <form className={css.form}>
+      <form className={css.form} action={handleSubmit}>
         <h1 className={css.formTitle}>Sign in</h1>
 
         <div className={css.formGroup}>
