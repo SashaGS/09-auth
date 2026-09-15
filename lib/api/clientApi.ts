@@ -101,8 +101,15 @@ export async function login(credentials: LoginRequest): Promise<LoginResponse> {
   return res.data;
 }
 
-export async function getMe(): Promise<User> {
-  const res = await apilib.get<User>("/users/me", {
+// export async function getMe(): Promise<User> {
+//   const res = await apilib.get<User>("/users/me", {
+//     withCredentials: true,
+//   });
+//   return res.data;
+// }
+
+export async function updateMe(updatedData: Partial<User>): Promise<User> {
+  const res = await apilib.put<User>("/users/me", updatedData, {
     withCredentials: true,
   });
   return res.data;

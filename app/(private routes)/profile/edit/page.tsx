@@ -8,7 +8,7 @@ function EditProfilePage() {
         <h1 className={css.formTitle}>Edit Profile</h1>
 
         <Image
-          src="avatar"
+          src="/placeholder/avatar.png"
           alt="User Avatar"
           width={120}
           height={120}
