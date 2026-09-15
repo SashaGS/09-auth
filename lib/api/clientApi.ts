@@ -20,25 +20,31 @@ interface NotesResponse {
   totalPages?: number;
 }
 
+interface RegisterRequest {
+  email: string;
+  password: string;
+  username?: string;
+}
+
 export const fetchNotes = async (
   search?: string,
   tag?: string,
   currentPage?: number,
 ): Promise<NotesResponse> => {
-  // const config = {
-  //   headers: {
-  //     accept: "application/json",
-  //     // Authorization: `Bearer ${token}`,
-  //   },
-  //   params: {
-  //     search: search,
-  //     // ВАЖЛИВО: якщо tag === "all" або undefined → не додаємо параметр
-  //     ...(tag && tag !== "all" ? { tag } : {}),
-  //     page: currentPage,
-  //   },
-  // };
+  const config = {
+    //   headers: {
+    //     accept: "application/json",
+    //     // Authorization: `Bearer ${token}`,
+    //   },
+    params: {
+      search: search,
+      page: currentPage,
+      // ВАЖЛИВО: якщо tag === "all" або undefined → не додаємо параметр
+      ...(tag && tag !== "all" ? { tag } : {}),
+    },
+  };
 
-  const resp = await apilib.get<NotesResponse>("/notes");
+  const resp = await apilib.get<NotesResponse>("/notes", config);
   // console.log(tag);
   return resp.data;
 };
@@ -57,34 +63,33 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
 export const addNote = async (
   noteData: Pick<Note, "title" | "content" | "tag">,
 ): Promise<Note> => {
-  const config = {
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const { data } = await apilib.post<Note>("/notes", noteData, config);
+  // const config = {
+  //   headers: {
+  //     accept: "application/json",
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // };
+  const { data } = await apilib.post<Note>("/notes", noteData);
   return data;
 };
 
 export const deleteNote = async (id: Note["id"]): Promise<Note> => {
   const { data } = await apilib.delete<Note>(`/notes/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
+    // headers: { Authorization: `Bearer ${token}` },
   });
   return data;
 };
 
-export const register = async () => {
-  const { data } = await apilib.post("/auth/register", {
-    email: " ",
-  });
+export const register = async (data: RegisterRequest) => {
+  const resp = await apilib.post<User>("/auth/register", data);
+  return resp;
 };
 
 export async function login(credentials: LoginRequest): Promise<LoginResponse> {
   const res = await apilib.post<LoginResponse>("/auth/login", credentials, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
     withCredentials: true, // щоб куки зберігались
   });
 
