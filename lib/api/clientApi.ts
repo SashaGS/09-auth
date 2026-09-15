@@ -20,10 +20,15 @@ interface NotesResponse {
   totalPages?: number;
 }
 
-interface RegisterRequest {
+export interface RegisterRequest {
   email: string;
   password: string;
-  username?: string;
+  // username?: string;
+}
+
+export interface RegisterResponse {
+  user: User;
+  token: string;
 }
 
 export const fetchNotes = async (
@@ -81,7 +86,7 @@ export const deleteNote = async (id: Note["id"]): Promise<Note> => {
 };
 
 export const register = async (data: RegisterRequest) => {
-  const resp = await apilib.post<User>("/auth/register", data);
+  const resp = await apilib.post<RegisterResponse>("/auth/register", data);
   return resp;
 };
 

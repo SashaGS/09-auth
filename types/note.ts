@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface Note {
   id: string;
   title: string;
@@ -12,3 +14,14 @@ export interface NotesResponse {
   totalPages?: number;
 }
 // export type NoteId = Note["id"];
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  // username?: string;
+}
+
+export interface RegisterResponse {
+  user: User;
+  token: string;
+}
