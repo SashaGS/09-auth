@@ -9,6 +9,27 @@ function EditProfilePage() {
   const router = useRouter();
   const { user, setUser } = useAuthStore();
 
+  // const [username, setUsername] = useState(user?.username || "");
+  // const [email, setEmail] = useState(user?.email || "");
+  // const [error, setError] = useState<string | null>(null);
+  // const [loading, setLoading] = useState(false);
+
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError(null);
+
+  //   try {
+  //     const updatedUser = await updateMe({ username });
+  //     setUser(updatedUser); // ✅ оновлюємо Zustand-store
+  //     router.push("/profile"); // редірект на сторінку профілю
+  //   } catch (err: any) {
+  //     setError(err.message || "Failed to update profile");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleCancel = () => {
     router.push("/profile");
   };
