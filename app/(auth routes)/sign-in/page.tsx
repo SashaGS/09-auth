@@ -5,10 +5,12 @@ import { login, LoginRequest } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ApiError } from "../../api/api";
+import { useAuthStore } from "@/lib/store/authStore";
 
 function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const { setUser } = useAuthStore();
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -17,7 +19,8 @@ function SignInPage() {
         password: String(formData.get("password") ?? ""),
       };
       const result = await login(formValues);
-      if (result) {
+      if (result.user) {
+        setUser(result.user);
         router.push("/profile");
       } else {
         setError("Invalid email or password");

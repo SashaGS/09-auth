@@ -6,10 +6,12 @@ import { register } from "@/lib/api/clientApi";
 import { RegisterRequest } from "@/lib/api/clientApi";
 import { useState } from "react";
 import { ApiError } from "../../api/api";
+import { useAuthStore } from "@/lib/store/authStore";
 
 function SignUpPage() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const { setUser } = useAuthStore();
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -21,6 +23,7 @@ function SignUpPage() {
 
       const result = await register(formValues);
       if (result) {
+        setUser(result.data.user);
         router.push("/profile");
       } else {
         setError("Invalid email or password");
