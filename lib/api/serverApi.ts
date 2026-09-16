@@ -51,3 +51,16 @@ export async function getMe(): Promise<User> {
   });
   return res.data;
 }
+
+export const checkSession = async () => {
+  // Дістаємо поточні cookie
+  const cookieStore = await cookies();
+  const res = await apilib.get("/auth/session", {
+    headers: {
+      // передаємо кукі далі
+      Cookie: cookieStore.toString(),
+    },
+  });
+  // Повертаємо повний респонс, щоб proxy мав доступ до нових cookie
+  return res;
+};

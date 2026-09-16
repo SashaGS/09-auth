@@ -1,7 +1,14 @@
 import Image from "next/image";
 import css from "./EditProfilePage.module.css";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/store/authStore";
+import { updateMe } from "@/lib/api/clientApi";
+import { useState } from "react";
 
 function EditProfilePage() {
+  const router = useRouter();
+  const { user, setUser } = useAuthStore();
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
