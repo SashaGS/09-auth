@@ -1,34 +1,43 @@
+"use client";
+
 import Image from "next/image";
 import css from "./EditProfilePage.module.css";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { updateMe } from "@/lib/api/clientApi";
 import { useState } from "react";
+import { ApiError } from "@/app/api/api";
 
 function EditProfilePage() {
   const router = useRouter();
   const { user, setUser } = useAuthStore();
 
-  // const [username, setUsername] = useState(user?.username || "");
+  const [username, setUsername] = useState(user?.username || "");
   // const [email, setEmail] = useState(user?.email || "");
-  // const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   // const [loading, setLoading] = useState(false);
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setError(null);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //   setLoading(true);
+    //   setError(null);
 
-  //   try {
-  //     const updatedUser = await updateMe({ username });
-  //     setUser(updatedUser); // ✅ оновлюємо Zustand-store
-  //     router.push("/profile"); // редірект на сторінку профілю
-  //   } catch (err: any) {
-  //     setError(err.message || "Failed to update profile");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+    try {
+      const updatedUser = await updateMe({ username });
+      if (updatedUser) {
+        setUser(updatedUser); // ✅ оновлюємо Zustand-store
+        router.push("/profile");
+      } else {
+        setError("Invalid name or ....");
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          "Oops... some error",
+      );
+    }
+  };
 
   const handleCancel = () => {
     router.push("/profile");
@@ -47,7 +56,7 @@ function EditProfilePage() {
           className={css.avatar}
         />
 
-        <form className={css.profileInfo}>
+        <form className={css.profileInfo} onSubmit={handleSubmit}>
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username:</label>
             <input id="username" type="text" className={css.input} />

@@ -98,18 +98,20 @@ export const login = async (data: LoginRequest) => {
 };
 
 export const getMe = async () => {
-  const { data } = await apilib.get<User>("/auth/me");
+  const { data } = await apilib.get<User>("/users/me");
   return data;
 };
 
 export async function updateMe(updatedData: Partial<User>): Promise<User> {
-  const res = await apilib.put<User>("/users/me", updatedData, {
-    withCredentials: true,
-  });
+  const res = await apilib.patch<User>("/users/me", updatedData);
   return res.data;
 }
 
 export const checkSession = async () => {
   const res = await apilib.get<CheckSessionRequest>("/auth/session");
   return res.data.success;
+};
+
+export const logout = async (): Promise<void> => {
+  await apilib.post("/auth/logout");
 };

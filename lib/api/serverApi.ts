@@ -55,10 +55,11 @@ export async function getMe(): Promise<User> {
 export const checkSession = async () => {
   // Дістаємо поточні cookie
   const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
   const res = await apilib.get("/auth/session", {
     headers: {
       // передаємо кукі далі
-      Cookie: cookieStore.toString(),
+      Cookie: cookieHeader,
     },
   });
   // Повертаємо повний респонс, щоб proxy мав доступ до нових cookie

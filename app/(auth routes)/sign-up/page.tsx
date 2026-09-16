@@ -11,7 +11,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 function SignUpPage() {
   const router = useRouter();
   const [error, setError] = useState("");
-  const { setUser } = useAuthStore();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleSubmit = async (formData: FormData) => {
     try {

@@ -10,7 +10,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState("");
-  const { setUser } = useAuthStore();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -19,7 +19,7 @@ function SignInPage() {
         password: String(formData.get("password") ?? ""),
       };
       const result = await login(formValues);
-      if (result.user) {
+      if (result) {
         setUser(result.user);
         router.push("/profile");
       } else {

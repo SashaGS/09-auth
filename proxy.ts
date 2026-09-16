@@ -81,5 +81,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [...publicRoutes, ...privateRoutes],
+  matcher: ["/sign-in", "/sign-up", "/profile", "/notes/:path*", "/settings"],
 };
