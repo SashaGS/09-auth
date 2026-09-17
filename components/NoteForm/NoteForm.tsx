@@ -17,7 +17,7 @@ function NoteForm() {
   const { mutate } = useMutation({
     mutationFn: addNote,
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ["note"], exact: false });
+      queryClient.invalidateQueries({ queryKey: ["notes"], exact: false });
       queryClient.refetchQueries({ queryKey: ["notes"], exact: false });
       clearDraft();
       router.back();
