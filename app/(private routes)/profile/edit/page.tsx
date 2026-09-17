@@ -12,7 +12,7 @@ function EditProfilePage() {
   const router = useRouter();
   const { user, setUser } = useAuthStore();
 
-  const [username, setUsername] = useState(user?.username || "");
+  const [username] = useState(user?.username || "");
   // const [email, setEmail] = useState(user?.email || "");
   const [error, setError] = useState<string | null>(null);
   // const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ function EditProfilePage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //   setLoading(true);
-    //   setError(null);
+    setError(null);
 
     try {
       const updatedUser = await updateMe({ username });
@@ -49,7 +49,7 @@ function EditProfilePage() {
         <h1 className={css.formTitle}>Edit Profile</h1>
 
         <Image
-          src="/placeholder/avatar.png"
+          src={user?.avatar || "/placeholder/avatar.png"}
           alt="User Avatar"
           width={120}
           height={120}
@@ -62,7 +62,7 @@ function EditProfilePage() {
             <input id="username" type="text" className={css.input} />
           </div>
 
-          <p>Email: user_email@example.com</p>
+          <p>Email: {user?.email}</p>
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>

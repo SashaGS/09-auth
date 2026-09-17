@@ -8,11 +8,6 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface LoginResponse {
-  user: User;
-  token: string;
-}
-
 interface NotesResponse {
   notes: Note[];
   totalPages?: number;
@@ -22,11 +17,6 @@ export interface RegisterRequest {
   email: string;
   password: string;
   // username?: string;
-}
-
-export interface RegisterResponse {
-  user: User;
-  token: string;
 }
 
 type CheckSessionRequest = {
@@ -88,13 +78,13 @@ export const deleteNote = async (id: Note["id"]): Promise<Note> => {
 };
 
 export const register = async (data: RegisterRequest) => {
-  const resp = await apilib.post<RegisterResponse>("/auth/register", data);
+  const resp = await apilib.post<User>("/auth/register", data);
   return resp;
 };
 
 export const login = async (data: LoginRequest) => {
-  const res = await apilib.post<LoginResponse>("/auth/login", data);
-  return res.data;
+  const resp = await apilib.post<User>("/auth/login", data);
+  return resp;
 };
 
 export const getMe = async () => {

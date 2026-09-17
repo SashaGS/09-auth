@@ -2,12 +2,12 @@
 import { create } from "zustand";
 import { User } from "@/types/user";
 
-interface AuthState {
+type AuthState = {
   user: User | null;
   isAuthenticated: boolean;
   setUser: (user: User) => void;
   clearIsAuthenticated: () => void;
-}
+};
 
 export const useAuthStore = create<AuthState>()((set) => ({
   user: null,

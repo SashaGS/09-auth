@@ -40,7 +40,7 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
   return data;
 };
 
-export async function getMe(): Promise<User> {
+export async function getServerMe(): Promise<User> {
   const cookieStore = await cookies();
   // console.log("Cookies in getMe:", cookieStore);
   const cookieHeader = cookieStore.toString();
@@ -52,7 +52,7 @@ export async function getMe(): Promise<User> {
   return res.data;
 }
 
-export const checkSession = async () => {
+export const checkServerSession = async () => {
   // Дістаємо поточні cookie
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
