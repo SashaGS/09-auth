@@ -1,4 +1,3 @@
-// import axios from "axios";
 import { Note } from "@/types/note";
 import { apilib } from "./api";
 import { User } from "@/types/user";
@@ -29,10 +28,6 @@ export const fetchNotes = async (
   currentPage?: number,
 ): Promise<NotesResponse> => {
   const config = {
-    //   headers: {
-    //     accept: "application/json",
-    //     // Authorization: `Bearer ${token}`,
-    //   },
     params: {
       search: search,
       page: currentPage,
@@ -42,17 +37,10 @@ export const fetchNotes = async (
   };
 
   const resp = await apilib.get<NotesResponse>("/notes", config);
-  // console.log(tag);
   return resp.data;
 };
 
 export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
-  // const config = {
-  //   headers: {
-  //     accept: "application/json",
-  //     // Authorization: `Bearer ${token}`,
-  //   },
-  // };
   const { data } = await apilib.get<Note>(`/notes/${id}`);
   return data;
 };
@@ -60,20 +48,12 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
 export const addNote = async (
   noteData: Pick<Note, "title" | "content" | "tag">,
 ): Promise<Note> => {
-  // const config = {
-  //   headers: {
-  //     accept: "application/json",
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // };
   const { data } = await apilib.post<Note>("/notes", noteData);
   return data;
 };
 
 export const deleteNote = async (id: Note["id"]): Promise<Note> => {
-  const { data } = await apilib.delete<Note>(`/notes/${id}`, {
-    // headers: { Authorization: `Bearer ${token}` },
-  });
+  const { data } = await apilib.delete<Note>(`/notes/${id}`);
   return data;
 };
 

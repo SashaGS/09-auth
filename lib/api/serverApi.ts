@@ -3,26 +3,11 @@ import { apilib } from "./api";
 import { NotesResponse, Note } from "@/types/note";
 import { cookies } from "next/headers";
 
-// const token =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkZxdmFAdWtyLm5ldCIsImlhdCI6MTc4NjYyMjc0Mn0.jkg9S2Kty2N0FrvCg1GBSW9zCjuWvjxmxCLSEkC-ik8";
-
 export const fetchNotes = async (
   search?: string,
   tag?: string,
   currentPage?: number,
 ): Promise<NotesResponse> => {
-  // const config = {
-  //   headers: {
-  //     accept: "application/json",
-  //     // Authorization: `Bearer ${token}`,
-  //   },
-  //   params: {
-  //     search: search,
-  //     // ВАЖЛИВО: якщо tag === "all" або undefined → не додаємо параметр
-  //     ...(tag && tag !== "all" ? { tag } : {}),
-  //     page: currentPage,
-  //   },
-  // };
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
   const resp = await apilib.get<NotesResponse>("/notes", {
@@ -31,17 +16,10 @@ export const fetchNotes = async (
       Cookie: cookieHeader,
     },
   });
-  // console.log(tag);
   return resp.data;
 };
 
 export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
-  // const config = {
-  //   headers: {
-  //     accept: "application/json",
-  //     // Authorization: `Bearer ${token}`,
-  //   },
-  // };
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
   const { data } = await apilib.get<Note>(`/notes/${id}`, {
@@ -55,7 +33,6 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
 
 export async function getServerMe(): Promise<User> {
   const cookieStore = await cookies();
-  // console.log("Cookies in getMe:", cookieStore);
   const cookieHeader = cookieStore.toString();
   const res = await apilib.get<User>("/users/me", {
     headers: {

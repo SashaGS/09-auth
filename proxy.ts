@@ -10,7 +10,7 @@ const privateRoutes = ["/profile", "/profile/edit", "/notes"];
 //
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  console.log("pathname " + pathname);
+  // console.log("pathname " + pathname);
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
@@ -22,7 +22,7 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith(route),
   );
 
-  console.log(isPublicRoute + "---" + "privet " + isPrivateRoute);
+  // console.log(isPublicRoute + "---" + "privet " + isPrivateRoute);
 
   if (!accessToken) {
     if (refreshToken) {
