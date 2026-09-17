@@ -10,7 +10,7 @@ const privateRoutes = ["/profile", "/profile/edit", "/notes"];
 //
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  // console.log(pathname);
+  console.log("pathname " + pathname);
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
