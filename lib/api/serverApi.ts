@@ -23,8 +23,14 @@ export const fetchNotes = async (
   //     page: currentPage,
   //   },
   // };
-
-  const resp = await apilib.get<NotesResponse>("/notes");
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
+  const resp = await apilib.get<NotesResponse>("/notes", {
+    headers: {
+      // передаємо кукі далі
+      Cookie: cookieHeader,
+    },
+  });
   // console.log(tag);
   return resp.data;
 };
@@ -36,7 +42,14 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
   //     // Authorization: `Bearer ${token}`,
   //   },
   // };
-  const { data } = await apilib.get<Note>(`/notes/${id}`);
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
+  const { data } = await apilib.get<Note>(`/notes/${id}`, {
+    headers: {
+      // передаємо кукі далі
+      Cookie: cookieHeader,
+    },
+  });
   return data;
 };
 
