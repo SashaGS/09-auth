@@ -25,7 +25,7 @@ function EditProfilePage() {
     try {
       const updatedUser = await updateMe({ username });
       if (updatedUser) {
-        setUser(updatedUser); // ✅ оновлюємо Zustand-store
+        setUser(updatedUser); // Zustand-store
         router.push("/profile");
       } else {
         setError("Invalid name or ....");

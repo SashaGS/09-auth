@@ -5,11 +5,12 @@ import { cookies } from "next/headers";
 import { parseSetCookie } from "cookie";
 import { checkServerSession } from "./lib/api/serverApi";
 // myroute
-const publicRoutes = ["/", "/sign-in", "/sign-up"];
+const publicRoutes = ["/sign-in", "/sign-up"];
 const privateRoutes = ["/profile", "/profile/edit", "/notes"];
 //
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  // console.log(pathname);
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
@@ -20,6 +21,8 @@ export async function proxy(request: NextRequest) {
   const isPrivateRoute = privateRoutes.some((route) =>
     pathname.startsWith(route),
   );
+
+  console.log(isPublicRoute + "---" + "privet " + isPrivateRoute);
 
   if (!accessToken) {
     if (refreshToken) {
@@ -71,9 +74,9 @@ export async function proxy(request: NextRequest) {
 
   // Якщо accessToken існує:
   // публічний маршрут — виконуємо редірект на головну
-  // if (isPublicRoute) {
-  //   return NextResponse.redirect(new URL("/", request.url));
-  // }
+  if (isPublicRoute) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
   // приватний маршрут — дозволяємо доступ
   if (isPrivateRoute) {
     return NextResponse.next();
