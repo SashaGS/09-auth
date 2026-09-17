@@ -7,10 +7,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDebouncedCallback } from "use-debounce";
 import { useRouter } from "next/navigation";
 import { fetchNotes } from "@/lib/api/clientApi";
-import SearchBox from "../../../../components/SearchBox/SearchBox";
-import NoteList from "../../../../components/NoteList/NoteList";
-import Pagination from "../../../../components/Pagination/Pagination";
-import Loader from "../../../../components/Loader/Loader";
+import SearchBox from "@/components/SearchBox/SearchBox";
+import NoteList from "@/components/NoteList/NoteList";
+import Pagination from "@/components/Pagination/Pagination";
+import Loader from "@/components/Loader/Loader";
 
 interface NotesClientProps {
   valTag: string;
