@@ -8,14 +8,10 @@ import axios from "axios";
 // axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 const baseURL = process.env.NEXT_PUBLIC_API_URL + "/api/";
 // const token = process.env.NEXT_PUBLIC_API_TOKEN;
-// console.log("baseURL:", baseURL);
-// console.log("token:", token);
+
 export const apilib = axios.create({
   baseURL,
   withCredentials: true, // підтримка cookies
-  // headers: {
-  //   "Content-Type": "application/json",
-  // },
 });
 
 // ////////////////////////////////////////////////////////////
