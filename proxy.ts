@@ -6,7 +6,12 @@ import { parseSetCookie } from "cookie";
 import { checkServerSession } from "./lib/api/serverApi";
 // myroute
 const publicRoutes = ["/sign-in", "/sign-up"];
-const privateRoutes = ["/profile", "/profile/edit", "/notes"];
+const privateRoutes = [
+  "/profile",
+  "/profile/edit",
+  "/notes",
+  "/notes/filtergit ",
+];
 //
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -84,12 +89,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/sign-in",
-    "/sign-up",
-    "/profile/:path*",
-    "/notes/:path*",
-    "/settings",
-    "/register",
-  ],
+  matcher: ["/sign-in", "/sign-up", "/profile/:path*", "/notes/:path*"],
 };

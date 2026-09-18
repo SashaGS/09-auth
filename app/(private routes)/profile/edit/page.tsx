@@ -6,13 +6,14 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { updateMe } from "@/lib/api/clientApi";
 import { useState } from "react";
-import { ApiError } from "@/app/api/api";
+import { ApiError } from "@/types/note";
 
 function EditProfilePage() {
   const router = useRouter();
   const { user, setUser } = useAuthStore();
 
-  const [username] = useState(user?.username || "");
+  const [username, setUsername] = useState(user?.username || "");
+
   // const [email, setEmail] = useState(user?.email || "");
   const [error, setError] = useState<string | null>(null);
   // const [loading, setLoading] = useState(false);
@@ -40,7 +41,8 @@ function EditProfilePage() {
   };
 
   const handleCancel = () => {
-    router.push("/profile");
+    // router.push("/profile");
+    router.back();
   };
 
   return (
@@ -59,7 +61,13 @@ function EditProfilePage() {
         <form className={css.profileInfo} onSubmit={handleSubmit}>
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username:</label>
-            <input id="username" type="text" className={css.input} />
+            <input
+              id="username"
+              type="text"
+              className={css.input}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
 
           <p>Email: {user?.email}</p>
