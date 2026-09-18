@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+// import { AxiosError } from "axios";
 import axios from "axios";
 
 export const api = axios.create({
@@ -6,4 +6,4 @@ export const api = axios.create({
   withCredentials: true,
 });
 
-export type ApiError = AxiosError<{ error: string }>;
+// export type ApiError = AxiosError<{ error: string }>;

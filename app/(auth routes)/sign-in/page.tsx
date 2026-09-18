@@ -4,7 +4,7 @@ import css from "./SignInPage.module.css";
 import { login, LoginRequest } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ApiError } from "../../api/api";
+import { ApiError } from "@/types/note";
 import { useAuthStore } from "@/lib/store/authStore";
 
 function SignInPage() {

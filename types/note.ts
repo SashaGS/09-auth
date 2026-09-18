@@ -1,4 +1,5 @@
 import { User } from "./user";
+import { AxiosError } from "axios";
 
 export interface Note {
   id: string;
@@ -25,3 +26,5 @@ export interface NotesResponse {
 //   user: User;
 //   token: string;
 // }
+
+export type ApiError = AxiosError<{ error: string }>;

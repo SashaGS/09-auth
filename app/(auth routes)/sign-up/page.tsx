@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { register } from "@/lib/api/clientApi";
 import { RegisterRequest } from "@/lib/api/clientApi";
 import { useState } from "react";
-import { ApiError } from "../../api/api";
+import { ApiError } from "@/types/note";
 import { useAuthStore } from "@/lib/store/authStore";
 
 function SignUpPage() {
